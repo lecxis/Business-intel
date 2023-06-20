@@ -1,15 +1,12 @@
 import { Component } from 'react';
 import {Row, Label, Button } from "reactstrap";
 
-
-class Invoice extends Component{
-
+class Item extends Component{
     constructor(props) {
         super(props);
 
         this.state = { 
-             item: {}
-            } 
+             item: {}} 
  
         this.handleUserNameChange = this.handleUserNameChange.bind(this);     
         this.handleItemNameChange = this.handleItemNameChange.bind(this);   
@@ -19,10 +16,15 @@ class Invoice extends Component{
         this.handleDateChange = this.handleDateChange.bind(this);      
         
         this.butClicked=this.butClicked.bind(this)
+    
         //this.handleCategoryChange = this.handleCategoryChange.bind(this); 
+        //console.log('this is the props');
+        //console.log(this.props.income[0].username);
     }
+    
     butClicked(){
         this.props.changePerson('joke');
+       
         
     }
     handleUserNameChange(e) {  
@@ -72,10 +74,14 @@ class Invoice extends Component{
        e.preventDefault(); 
  
         alert(JSON.stringify(this.state.item));   
-    this.props.sendData(this.state.item)  } 
+    this.props.sendData(this.state.item)  
+    this.setState( {item: {}})
+    console.log(this.state)
+} 
+    
     render(){
 
-                console.log(this.props.income[0].userName);
+               // console.log(this.props.income[0].userName);
         return(
             <div className="container">
                 <form onSubmit={(e) => this.onSubmit(e)}>
@@ -119,15 +125,12 @@ class Invoice extends Component{
                                 <Row className="form-group">
                                 <input type="submit" value="Submit" />
                                 </Row>
-
-
-
-
                                 </form>
                                 <Button outline onClick={this.butClicked}><span className="fa fa-sign-in fa-lg"></span> Testing</Button>
 
 
-<h1> This Is the username of {this.props.income[0].username} and {this.props.person} Invoice page </h1>
+<h1> This Is the username of {this.props.income[0].name
+} and {this.props.person} Invoice page </h1>
             </div>
             
 
@@ -136,4 +139,4 @@ class Invoice extends Component{
     }
 
 }
-export default Invoice;
+export default Item;

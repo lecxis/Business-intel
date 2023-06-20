@@ -33,23 +33,49 @@ class  Main extends Component {
        this.sendData= this.sendData.bind(this);
        
       }
+      submitForm=(data)=>{
+        this.setState((prevState)=>({
+            ...prevState, income:prevState.income.push(data)
+        }))
+      }
       
       changePerson=(person)=>{
-        console.log('john o')
+        console.log(this.state)
+        console.log('new name is '+person);
+
         this.setState((prevState)=>(
           {
-            person: person
+            ...prevState, person:person
           }
     ))
-
+    //console.log(this.state)
       }
        sendData=(data)=>{
-        console.log(data)
-        this.setState((state, props)=>{
-              {
-                income: this.state.income.unshift(data)
-              }
-        })
+       // console.log(data)
+       let count=0;
+       
+        this.setState((prevState)=>{
+          //console.log(prevState);
+          if(count ==0){
+            count++;
+          let inc= prevState.income;
+          inc.unshift(data)
+          let newstate= {
+            ...prevState, income: inc//prevState.income//.push(data)//.unshift(data)
+         }
+         console.log(newstate)
+          return newstate
+          
+        }
+        
+      }
+          //
+          )  
+         
+          
+          //console.log('co is ',count);
+              
+       
         //this.state.income.unshift(data);
         console.log(this.state)
       }
@@ -80,8 +106,5 @@ render(){
     </div>
     )
 }
-
-
 }
-
 export default Main;

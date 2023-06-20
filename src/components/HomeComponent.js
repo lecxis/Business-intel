@@ -32,8 +32,6 @@ function RenderExpenses(expense) {
 
 }
 
-
-
 function Home (props){
 
     //console.log(props);
@@ -51,18 +49,18 @@ function Home (props){
         <div className="container">
             <div className="row align-items-start">
             <div className="col-12 col-md m-1 display">
-                <h3> Income </h3>
+                <h3> Invoice </h3>
                {menu}
                 </div>
                 <div className="col-12 col-md m-1">
-                <h3> Pending Invoices</h3>
+                <h3> Pending Invoice</h3>
                 {menu}
                 <Link to ='/invoice'>  <Button outline onClick={console.log('Button')} className="btn btn-primary" color='white' >
                     Create a new Invoice
                     </Button></Link>
                 </div>
                 <div className="col-12 col-md m-1 test display">
-                <h3> Expense</h3>
+                <h3> Expenses</h3>
                 {bills}
                 
                 </div>
