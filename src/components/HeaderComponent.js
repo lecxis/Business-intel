@@ -26,7 +26,7 @@ render(){
         }}>
               <NavbarToggler onClick={console.log('toggler')} />
                   <NavbarBrand className="mr-auto"  href="/">
-                  <img src='assets/images/logo.png' height="30" width="41" alt='Business Intel' />
+                  <img src='assets/images/nwd_logo.png' height="30" width="41" alt='Business Intel' />
                   </NavbarBrand>
                   <Collapse isOpen={console.log('nav open')} navbar>
                   <Nav navbar>
