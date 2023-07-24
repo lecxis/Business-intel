@@ -3,6 +3,7 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
     CardTitle, CardSubtitle, Button} from 'reactstrap';
     import {Link} from 'react-router-dom';
     import JsPDF from 'jspdf';
+
     
 
     class ShowInvoice extends Component{
@@ -22,10 +23,21 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
             });
              }
               generatePDF = () => {
-                const report = new JsPDF('portrait','pt','a4');
+                /*const report = new JsPDF('portrait','pt','a4');
+                //source = document.querySelector('#report')[0];
                 report.html(document.querySelector('#report')).then(() => {
                     report.save('report.pdf');
+                     });*/
+                    const report = new JsPDF('portrait','pt','a4');
+                let source = document.querySelector('#report');
+                report.html(source, {
+                    callback: function(report) {
+                        report.save("newpdf.pdf");
+                    },
+                    x: 50,
+                    y: 12
                 });
+               
             }
         render(){
             console.log(this.props)
@@ -36,16 +48,16 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Invoice 101</ModalHeader>
                     <ModalBody>
-                    <div className='container' id='report'>
+                    <div className='container' id='report' style={{ backgroundImage: "url(/assets/images/nwd_logo.png)" }}>
                         <hr/>
                         <div className=' row '>
                         <div className="col-12 col-md m-1">
-                        <img src='assets/images/nwd_logo.png' className='rounded float-end' height="100" width="60" alt='logo' />
+                        <img src='assets/images/nwd_logo.png' className='rounded float-end' height="75" width="85" alt='logo' />
                         </div>
                         </div>
                         <div className=' row '>
                         <div className="col-12 col-md m-1">
-                            <h6>NIGERIAN WOMEN DIARY</h6>
+                            <h4>NIGERIAN WOMEN DIARY</h4>
                             <p>
                                 OREGUN,
                                 <br></br>
@@ -57,20 +69,20 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
                         </div>
                         <div className=' row '>
                         <div className="col-12 col-md m-1">
-                            <h5>Invoice</h5>
+                            <div className='invoice'>Invoice</div>
                             </div>   
                         </div>
 
                         <div className=' row '>
                         <div className="col-12 col-md m-1 ">
-                            <p>Submited on {this.props.name.date}</p>
+                            <h4>Submited on {this.props.name.date}</h4>
                             </div>   
                         </div>
 
                         <div className='row'>
                         <div className="col-md-3 m-1">
                             <h5>Invoice for</h5>
-                            <p> {this.props.name.name}</p>
+                            <p><span> {this.props.name.name}</span></p>
                             </div>  
 
                             <div className="col-md-4 m-1">
@@ -80,8 +92,8 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
                             </div> 
 
                             <div className="col-md-4 m-1">
-                            <strong>Invoice #</strong> 12345{}
-                            <p><strong>TIN- 21432334-0001</strong> </p>
+                            <h5>Invoice #</h5> 12345{}
+                            <h5>TIN- 21432334-0001</h5>
                             </div> 
                         </div>
                         <div className='row'>
@@ -97,7 +109,7 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
                         <div className='row'>
                         <div className="col-md-4 m-1">
                             <h6>Description</h6>
-                            <p>{this.props.name.description}</p>
+                            <p> <span>{this.props.name.description}</span></p>
                             </div>
 
                         <div className="col-md-2 m-1">
@@ -121,8 +133,8 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
                         <div className='row'>
                             <div className="col-12 col-md m-1 ">
                             <div className="float-end" >
-                            <p>Vat (7.5%) amont {}</p> 
-                            <p>Grand Total amont {}</p> 
+                            <h6>Vat (7.5%) <span> amont {} </span> </h6>
+                            <h6>Grand Total <span> amont {} </span> </h6>
                             </div>
                             </div>
                         </div>
