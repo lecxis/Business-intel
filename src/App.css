@@ -35,9 +35,7 @@
   background: #111;
   color: #5fff;
   border-radius:6px;
-  padding: 20px 25px;
-
- 
+  padding: 20px 25px; 
 }
 
 /* the invoice style*/
@@ -45,7 +43,31 @@
 #report{ 
 font-family: "Calibri", Times, serif;
 font-size: 14px;
+}
 
+.purpleLine{
+  margin-top: 20px;
+  width: auto;
+  height: 10px;
+  padding: 0px;
+  /*border: 1px solid rgb(5, 2, 37);*/
+  background-color: #1e094d;
+}
+
+.ashThinLine{
+  width: auto;
+  height: 5px;
+  padding: 0px;
+  /*border: 1px solid rgb(5, 2, 37);*/
+  background-color: #a0a5a4;
+}
+.ashThickLine{
+  margin-bottom: 10px;
+  width: auto;
+  height: 25px;
+  padding: 0px;
+  /*border: 1px solid rgb(5, 2, 37);*/
+  background-color: #b3b8b7;
 }
 
 #report h4{
@@ -62,8 +84,7 @@ font-size: 14px;
 
 #report h5{
   font-size: 18px;
-  font-weight: 600;
-  
+  font-weight: 600; 
 }
 
 #report h6{
@@ -81,3 +102,52 @@ h6 span{
   font-weight: bold;
   color: black;
 }
+
+#report::before {
+  content: "";
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  /*background-color: rgba(231, 228, 228, 0.25);*/
+  background-image: url('http://localhost:3000/assets/images/nwd_logo.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.1;
+  height: 95%;
+}
+
+#report div{
+  position: relative;
+}
+@media print {
+@page {
+  size: 160.5mm 260.15mm;
+  margin: 0 10mm;
+}
+
+#report{ 
+  font-size: 19px;
+  }
+  
+  #report h4{
+    font-size: 25px;
+  }
+  #report .invoice{
+    font-size: 35px;
+    font-weight: 900;
+    color: blue;
+  }
+  
+  #report h5{
+    font-size: 19px;
+    font-weight: 600;  
+  }
+  #report h6{
+    font-size: 22px;
+    color: blue;
+    font-weight: 600;
+  }  
+}
+

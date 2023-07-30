@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, useRef } from 'react';
 import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
     CardTitle, CardSubtitle, Button} from 'reactstrap';
     import {Link} from 'react-router-dom';
     import JsPDF from 'jspdf';
+    import ReactToPrint from 'react-to-print';
 
     
 
@@ -48,98 +49,8 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Invoice 101</ModalHeader>
                     <ModalBody>
-                    <div className='container' id='report' style={{ backgroundImage: "url(/assets/images/nwd_logo.png)" }}>
-                        <hr/>
-                        <div className=' row '>
-                        <div className="col-12 col-md m-1">
-                        <img src='assets/images/nwd_logo.png' className='rounded float-end' height="75" width="85" alt='logo' />
-                        </div>
-                        </div>
-                        <div className=' row '>
-                        <div className="col-12 col-md m-1">
-                            <h4>NIGERIAN WOMEN DIARY</h4>
-                            <p>
-                                OREGUN,
-                                <br></br>
-                                LAGOS, NIGERIA.
-                                <br></br>
-                                07082662500
-                            </p>
-                            </div> 
-                        </div>
-                        <div className=' row '>
-                        <div className="col-12 col-md m-1">
-                            <div className='invoice'>Invoice</div>
-                            </div>   
-                        </div>
-
-                        <div className=' row '>
-                        <div className="col-12 col-md m-1 ">
-                            <h4>Submited on {this.props.name.date}</h4>
-                            </div>   
-                        </div>
-
-                        <div className='row'>
-                        <div className="col-md-3 m-1">
-                            <h5>Invoice for</h5>
-                            <p><span> {this.props.name.name}</span></p>
-                            </div>  
-
-                            <div className="col-md-4 m-1">
-                            <h5>Payable to</h5>
-                            <p>Women Diary Global ventures <br></br>
-                            5600388452 <br></br> Fidelity Bank</p>
-                            </div> 
-
-                            <div className="col-md-4 m-1">
-                            <h5>Invoice #</h5> 12345{}
-                            <h5>TIN- 21432334-0001</h5>
-                            </div> 
-                        </div>
-                        <div className='row'>
-                            <div className="col-12 col-md m-1 ">
-                            <div className="float-end" >
-                            <h5>Due Date</h5> 
-                            date {}
-                            </div>
-                            </div>
-                        </div>
-                        <hr></hr>
-
-                        <div className='row'>
-                        <div className="col-md-4 m-1">
-                            <h6>Description</h6>
-                            <p> <span>{this.props.name.description}</span></p>
-                            </div>
-
-                        <div className="col-md-2 m-1">
-                            <h6>Qty</h6>
-                            <p>{this.props.name.quantity}</p>
-                            </div>
-
-                            <div className="col-3 col-md m-1">
-                            <h6>Unit Price</h6>
-                            <p>{this.props.name.price}</p>
-                            </div>
-
-                            <div className="col-3 col-md m-1">
-                            <h6>Total Price</h6>
-                            <p>Amount{}</p>
-                            </div>
-
-                        </div>
-                        
-                        <hr></hr>
-                        <div className='row'>
-                            <div className="col-12 col-md m-1 ">
-                            <div className="float-end" >
-                            <h6>Vat (7.5%) <span> amont {} </span> </h6>
-                            <h6>Grand Total <span> amont {} </span> </h6>
-                            </div>
-                            </div>
-                        </div>
-                        <button onClick={this.generatePDF}className= "btn btn-outline-dark">Download Invoice</button>
-                    </div>
+                   <PrintComponent data={this.props}/>
+                    <button onClick={this.generatePDF}className= "btn btn-outline-dark">Download Invoice</button>
                     </ModalBody>
                 </Modal>
 
@@ -149,6 +60,11 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
         }
 
     }
+
+
+
+
+
     /*let open=true
     let toggleT= ()=>{
         open=!open;
@@ -205,6 +121,147 @@ function RenderExpenses(expense) {
 
 }
 
+function PrintComponent(props) {
+    let componentRef = useRef();
+   
+  
+    return (
+      <>
+        <div>
+          {/* button to trigger printing of target component */}
+          <ReactToPrint
+            trigger={() => <Button>Print this out!</Button>}
+            content={() => componentRef}
+          />
+  
+          {/* component to be printed */}
+          <InvoiceData ref={(el) => (componentRef = el)}  dat={props}/>
+        </div>
+      </>
+    );
+  }
+class TestPrint extends Component{
+    constructor(props){
+        super(props)
+
+    }
+
+    render (){
+       // console.log ('this is the new data')
+       //console.log(this.props)
+        return( 
+            <div>Test the print Pdf and {this.props.dat.data.name.name}</div>
+        )
+    }
+
+}
+
+class InvoiceData extends Component{
+    constructor(props){
+        super(props)
+
+    }
+
+    render (){
+        return(
+            <div className='container' id='report' style={{  /*backgroundImage: 'url("assets/images/nwd_logo.png")',
+            backgroundRepeat: "no-repeat", backgroundSize: "cover"*/}}>
+                <div className=' row '>
+                <div className="col-12 col-md m-1">
+                    <div className='purpleLine'></div>
+                <img src='assets/images/nwd_logo.png' className='rounded float-end' height="75" width="85" alt='logo' />
+                </div>
+                </div>
+                <div className=' row '>
+                <div className="col-12 col-md m-1">
+                    <h4>NIGERIAN WOMEN DIARY</h4>
+                    <p>
+                        OREGUN,
+                        <br></br>
+                        LAGOS, NIGERIA.
+                        <br></br>
+                        07082662500
+                    </p>
+                    </div> 
+                </div>
+                <div className=' row '>
+                <div className="col-12 col-md m-1">
+                    <div className='invoice'>Invoice</div>
+                    </div>   
+                </div>
+
+                <div className=' row '>
+                <div className="col-12 col-md m-1 ">
+                    <h4>Submited on {this.props.dat.data.name.date}</h4>
+                    </div>   
+                </div>
+
+                <div className='row'>
+                <div className="col-5 col-md m-1">
+                    <h5>Invoice for</h5>
+                    <p><span> {this.props.dat.data.name.name}</span></p>
+                    </div>  
+
+                    <div className="col-2 col-md m-1">
+                    <h5>Payable to</h5>
+                    <p>Women Diary Global ventures <br></br>
+                    5600388452 <br></br> Fidelity Bank</p>
+                    </div> 
+
+                    <div className="col-5 col-md-6 m-1">
+                    <h5>Invoice #</h5> 12345{} 
+                    <h5>TIN- 21432334-0001</h5>
+                    </div> 
+                </div>
+                <div className='row'>
+                    <div className="col-12 col-md m-1 ">
+                    <div className="float-end" >
+                    <h5>Due Date</h5> 
+                    date {}
+                    </div>
+                    </div>
+                </div>
+                <div className='ashThinLine'></div>
+
+                <div className='row'>
+                <div className="col-5 col-md m-1">
+                    <h6>Description    </h6>
+                    <p> <span>{this.props.dat.data.name.description}</span></p>
+                    </div>
+
+                <div className="col-2 col-md m-1">
+                    <h6>Qty</h6>
+                    <p>{this.props.dat.data.name.quantity}</p>
+                    </div>
+
+                    <div className="col-3 col-md m-1">
+                    <h6>Unit Price</h6>
+                    <p>{this.props.dat.data.name.price}</p>
+                    </div>
+
+                    <div className="col-3 col-md m-1">
+                    <h6>Total Price</h6>
+                    <p>Amount{}</p>
+                    </div>
+
+                </div>
+
+                
+                <div className='ashThickLine'></div>
+                <div className='ashThinLine'></div>
+                <div className='row'>
+                    <div className="col-12 col-md m-1 ">
+                    <div className="float-end" >
+                    <h6>Vat (7.5%) <span> amont {} </span> </h6>
+                    <h6>Grand Total <span> amont {} </span> </h6>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        )   
+    }
+}
+
 function Home (props){
 
     //console.log(props);
@@ -229,7 +286,7 @@ function Home (props){
                 <div className="col-12 col-md m-1">
                 <h3> Pending Invoice</h3>
                 {menu}
-                <Link to ='/invoice'>  <Button outline  className="btn btn-primary" color='white' >
+                <Link to ='/invoice'>  <Button outline  className="btn btn-primary" color='white'>
                     Create a new Invoice
                     </Button></Link>
                 </div>
