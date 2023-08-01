@@ -217,7 +217,7 @@ class InvoiceData extends Component{
                     <div className="col-12 col-md m-1 ">
                     <div className="float-end" >
                     <h5>Due Date</h5> 
-                    date {}
+                    {this.props.dat.data.name.date}
                     </div>
                     </div>
                 </div>
@@ -241,7 +241,7 @@ class InvoiceData extends Component{
 
                     <div className="col-3 col-md m-1">
                     <h6>Total Price</h6>
-                    <p>Amount{}</p>
+                    <p>{this.props.dat.data.name.total}</p>
                     </div>
 
                 </div>
@@ -252,8 +252,8 @@ class InvoiceData extends Component{
                 <div className='row'>
                     <div className="col-12 col-md m-1 ">
                     <div className="float-end" >
-                    <h6>Vat (7.5%) <span> amont {} </span> </h6>
-                    <h6>Grand Total <span> amont {} </span> </h6>
+                    <h6>Vat (7.5%) <span> {this.props.dat.data.name.vat} </span> </h6>
+                    <h6>Grand Total <span>{this.props.dat.data.name.grandTotal} </span> </h6>
                     </div>
                     </div>
                 </div>

@@ -23,9 +23,7 @@ class Item extends Component{
     }
     
     butClicked(){
-        this.props.changePerson('joke');
-       
-        
+        this.props.changePerson('joke');   
     }
     handleUserNameChange(e) {  
         this.setState( (state, props) => {  
@@ -59,20 +57,26 @@ class Item extends Component{
      handleQuantityChange(e) {  
         this.setState( (state, props) => {  
              let item = state.item                         
-             item.quantity =14// e.target.value; 
+             item.quantity =e.target.value; 
         return { item: item }         
             });   
      }
      handleDateChange(e) {  
         this.setState( (state, props) => {  
              let item = state.item                         
-             item.date = new Date()//e.target.value; 
+             item.date = e.target.value; 
         return { item: item }         
             });   
      }
     onSubmit = (e) => {
-       e.preventDefault(); 
- 
+       e.preventDefault();
+       this.setState( (state, props) => {  
+       let item =state.item
+        item.total= item.quantity*item.price;
+        item.vat = item.total*0.075;
+        item.grandTotal=item.vat+item.total;
+        return { item: item }         
+            }); 
         alert(JSON.stringify(this.state.item));   
     this.props.sendData(this.state.item)  
     this.setState( {item: {}})
