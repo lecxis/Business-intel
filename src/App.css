@@ -149,5 +149,8 @@ h6 span{
     color: blue;
     font-weight: 600;
   }  
+  #report h6 span{
+    font-size: 23px;
+  }
 }
 

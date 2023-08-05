@@ -47,7 +47,7 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
                 <div>
                     <button onClick={this.toggleModal}  className= "btn btn-outline-dark"><span><i className="fa fa-pencil" aria-hidden="true"></i> </span>View Invoice</button> 
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <ModalHeader toggle={this.toggleModal}>Invoice 101</ModalHeader>
+                    <ModalHeader toggle={this.toggleModal}>Invoice 142001{this.props.name.number} </ModalHeader>
                     <ModalBody>
                    <PrintComponent data={this.props}/>
                     <button onClick={this.generatePDF}className= "btn btn-outline-dark">Download Invoice</button>
@@ -197,19 +197,19 @@ class InvoiceData extends Component{
                 </div>
 
                 <div className='row'>
-                <div className="col-5 col-md m-1">
+                <div className="col-6 col-md m-1">
                     <h5>Invoice for</h5>
                     <p><span> {this.props.dat.data.name.name}</span></p>
                     </div>  
 
-                    <div className="col-2 col-md m-1">
+                    <div className="col-5 col-md m-1">
                     <h5>Payable to</h5>
                     <p>Women Diary Global ventures <br></br>
                     5600388452 <br></br> Fidelity Bank</p>
                     </div> 
 
-                    <div className="col-5 col-md-6 m-1">
-                    <h5>Invoice #</h5> 12345{} 
+                    <div className="col-1 col-md-6 m-1">
+                    <h5>Invoice #</h5>142001{this.props.dat.data.name.number} 
                     <h5>TIN- 21432334-0001</h5>
                     </div> 
                 </div>
@@ -217,7 +217,7 @@ class InvoiceData extends Component{
                     <div className="col-12 col-md m-1 ">
                     <div className="float-end" >
                     <h5>Due Date</h5> 
-                    {this.props.dat.data.name.date}
+                    {this.props.dat.data.name.dueDate}
                     </div>
                     </div>
                 </div>
@@ -236,12 +236,12 @@ class InvoiceData extends Component{
 
                     <div className="col-3 col-md m-1">
                     <h6>Unit Price</h6>
-                    <p>{this.props.dat.data.name.price}</p>
+                    <p>₦{new Intl.NumberFormat('en-US').format(this.props.dat.data.name.price)}</p>
                     </div>
 
                     <div className="col-3 col-md m-1">
                     <h6>Total Price</h6>
-                    <p>{this.props.dat.data.name.total}</p>
+                    <p>₦{new Intl.NumberFormat('en-US').format(this.props.dat.data.name.total)}</p>
                     </div>
 
                 </div>
@@ -252,8 +252,8 @@ class InvoiceData extends Component{
                 <div className='row'>
                     <div className="col-12 col-md m-1 ">
                     <div className="float-end" >
-                    <h6>Vat (7.5%) <span> {this.props.dat.data.name.vat} </span> </h6>
-                    <h6>Grand Total <span>{this.props.dat.data.name.grandTotal} </span> </h6>
+                    <h6>Vat (7.5%) <span> ₦{new Intl.NumberFormat('en-US').format(this.props.dat.data.name.vat)} </span> </h6>
+                    <h6>Grand Total <span>₦{new Intl.NumberFormat('en-US').format(this.props.dat.data.name.grandTotal)} </span> </h6>
                     </div>
                     </div>
                 </div>

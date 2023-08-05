@@ -63,15 +63,35 @@ class Item extends Component{
      }
      handleDateChange(e) {  
         this.setState( (state, props) => {  
-             let item = state.item                         
-             item.date = e.target.value; 
-        return { item: item }         
+           
+            // console.log(item.date);
+             //e.target.value; 
+       // return { item: item }         
             });   
      }
     onSubmit = (e) => {
        e.preventDefault();
        this.setState( (state, props) => {  
-       let item =state.item
+        const date = new Date();
+        let day = date.getDate();
+    let month = date.getMonth()+1 ;
+    let year = date.getFullYear();
+    let min=date.getMinutes();
+    let hour=date.getHours();
+    let sec=date.getSeconds();
+
+    let dueDate= new Date();
+    dueDate.setDate(dueDate.getDate() + 5)
+    let dueDay = dueDate.getDate();
+    let dueMonth = dueDate.getMonth()+1;
+    let dueYear = dueDate.getFullYear();
+    
+
+         let item = state.item  
+         item.number=452+hour+min+sec;                       
+         item.date = `${day}/${month}/${year}`
+         item.dueDate = `${dueDay}/${dueMonth}/${dueYear}`
+       //let item =state.item
         item.total= item.quantity*item.price;
         item.vat = item.total*0.075;
         item.grandTotal=item.vat+item.total;
@@ -87,6 +107,7 @@ class Item extends Component{
 
                // console.log(this.props.income[0].userName);
         return(
+            
             <div className="container">
                 <form onSubmit={(e) => this.onSubmit(e)}>
                 <Row className="form-group">
@@ -136,11 +157,7 @@ class Item extends Component{
 <h1> This Is the username of {this.props.income[0].name
 } and {this.props.person} Invoice page </h1>
             </div>
-            
-
         )
-
     }
-
 }
 export default Item;
