@@ -169,7 +169,7 @@ class InvoiceData extends Component{
                 <div className=' row '>
                 <div className="col-12 col-md m-1">
                     <div className='purpleLine'></div>
-                <img src='assets/images/nwd_logo.png' className='rounded float-end' height="75" width="85" alt='logo' />
+                <img src='http://lecxis.github.io/Business-intel/assets/images/nwd_logo.png' className='rounded float-end' height="75" width="85" alt='logo nwd' />
                 </div>
                 </div>
                 <div className=' row '>
