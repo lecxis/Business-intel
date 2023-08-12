@@ -7,7 +7,19 @@ class Header extends Component{
 
     constructor(props){
         super(props)
+
+       this.toggleNav = this.toggleNav.bind(this);
+        //this.toggleModal = this.toggleModal.bind(this)
+        this.state = {
+            isNavOpen: false
+            //isModalOpen: false
+          };
     }
+    toggleNav() {
+        this.setState({
+          isNavOpen: !this.state.isNavOpen
+        });
+      }
 
     loginButton() {
         console.log('button login');
@@ -24,11 +36,11 @@ render(){
               <div className="container" style={{
             display: 'flex',  padding: 30
         }}>
-              <NavbarToggler onClick={console.log('toggler')} />
+              <NavbarToggler onClick={this.toggleNav} />
                   <NavbarBrand className="mr-auto"  href="/">
                   <img src='http://lecxis.github.io/Business-intel/assets/images/nwd_logo.png' height="30" width="41" alt='Business Intel' />
                   </NavbarBrand>
-                  <Collapse isOpen={console.log('nav open')} navbar>
+                  <Collapse isOpen={this.state.isNavOpen}  navbar>
                   <Nav navbar>
                             <NavItem>
                                 <NavLink className="nav-link"  to='/'><span className="fa fa-home fa-lg"></span> Home</NavLink>
