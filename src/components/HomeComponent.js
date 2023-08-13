@@ -196,19 +196,19 @@ class InvoiceData extends Component{
                     </div>   
                 </div>
 
-                <div className='row'>
-                <div className="col-6 col-md m-1">
+                <div className='row fifth g-7'>
+                <div className="col-4 col-md m-1 ">
                     <h5>Invoice for</h5>
                     <p><span> {this.props.dat.data.name.name}</span></p>
                     </div>  
 
-                    <div className="col-5 col-md m-1">
+                    <div className="col-4 col-md m-1">
                     <h5>Payable to</h5>
                     <p>Women Diary Global ventures <br></br>
                     5600388452 <br></br> Fidelity Bank</p>
                     </div> 
 
-                    <div className="col-1 col-md-6 m-1">
+                    <div className="col-3 col-md-4 m-1">
                     <h5>Invoice #</h5>142001{this.props.dat.data.name.number} 
                     <h5>TIN- 21432334-0001</h5>
                     </div> 

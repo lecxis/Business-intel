@@ -121,36 +121,58 @@ h6 span{
 #report div{
   position: relative;
 }
+
 @media print {
 @page {
   size: 160.5mm 260.15mm;
-  margin: 0 10mm;
+  margin: 0 5%;
 }
 
-#report{ 
+.fifth{
+
+  display: grid;
+  column-gap: 0px;
+  /* 
+    border: 5px solid rgb(156, 12, 12);  
+  grid-column-start: 1;
+  grid-column-end: 2;
+ grid-template-columns: 80px 20px auto;*/
+  
+}
+.fifth .m-1{
+ /* border: 5px solid rgb(4, 63, 26);*/  
+  padding: 0px;
+  margin: 0%;
+}
+
+#report { 
   font-size: 19px;
   }
   
-  #report h4{
+  #report h4 {
     font-size: 25px;
   }
+
   #report .invoice{
     font-size: 35px;
     font-weight: 900;
     color: blue;
   }
   
-  #report h5{
+  #report h5 {
     font-size: 19px;
     font-weight: 600;  
   }
-  #report h6{
+
+  #report h6 {
     font-size: 22px;
     color: blue;
     font-weight: 600;
   }  
+
   #report h6 span{
-    font-size: 23px;
+  font-size: 23px;
   }
+
 }
 
