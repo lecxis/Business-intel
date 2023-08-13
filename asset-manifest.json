@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/Business-intel/static/css/main.f0741a78.css",
-    "main.js": "/Business-intel/static/js/main.f5f92a7f.js",
+    "main.css": "/Business-intel/static/css/main.6f947c45.css",
+    "main.js": "/Business-intel/static/js/main.a45c4b71.js",
     "static/js/498.f390f01f.chunk.js": "/Business-intel/static/js/498.f390f01f.chunk.js",
     "static/js/703.ddff0cd6.chunk.js": "/Business-intel/static/js/703.ddff0cd6.chunk.js",
     "static/js/258.e39578bb.chunk.js": "/Business-intel/static/js/258.e39578bb.chunk.js",
     "static/js/787.d4fb5f57.chunk.js": "/Business-intel/static/js/787.d4fb5f57.chunk.js",
     "index.html": "/Business-intel/index.html",
-    "main.f0741a78.css.map": "/Business-intel/static/css/main.f0741a78.css.map",
-    "main.f5f92a7f.js.map": "/Business-intel/static/js/main.f5f92a7f.js.map",
+    "main.6f947c45.css.map": "/Business-intel/static/css/main.6f947c45.css.map",
+    "main.a45c4b71.js.map": "/Business-intel/static/js/main.a45c4b71.js.map",
     "498.f390f01f.chunk.js.map": "/Business-intel/static/js/498.f390f01f.chunk.js.map",
     "703.ddff0cd6.chunk.js.map": "/Business-intel/static/js/703.ddff0cd6.chunk.js.map",
     "258.e39578bb.chunk.js.map": "/Business-intel/static/js/258.e39578bb.chunk.js.map",
     "787.d4fb5f57.chunk.js.map": "/Business-intel/static/js/787.d4fb5f57.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f0741a78.css",
-    "static/js/main.f5f92a7f.js"
+    "static/css/main.6f947c45.css",
+    "static/js/main.a45c4b71.js"
   ]
 }
