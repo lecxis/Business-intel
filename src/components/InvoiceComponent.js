@@ -6,7 +6,8 @@ class Item extends Component{
         super(props);
 
         this.state = { 
-             item: {}} 
+             item: {},
+             items: [{description: "", price: "", quantity: ""}]} 
  
         this.handleUserNameChange = this.handleUserNameChange.bind(this);     
         this.handleItemNameChange = this.handleItemNameChange.bind(this);   
@@ -21,9 +22,30 @@ class Item extends Component{
         //console.log('this is the props');
         //console.log(this.props.income[0].username);
     }
+    handleChange(i, e) {
+        let itemz = this.state.items;
+        itemz[i][e.target.name] = e.target.value;
+        this.setState( (state, props) => {  
+            let item = state.item;                         
+           
+       return { item: item, items: itemz }         
+           })
+       // this.setState({ item });
+                        }
+
+    addFormFields() {
+    this.setState(({
+    items: [...this.state.items, {  price: " ", quantity: "" }]
+    }))}
     
     butClicked(){
         this.props.changePerson('joke');   
+    }
+    addFields(e){
+        e.preventDefault();
+    
+    let newfield = { name: '', age: '' }
+    alert(newfield)
     }
     handleUserNameChange(e) {  
         this.setState( (state, props) => {  
@@ -69,6 +91,16 @@ class Item extends Component{
        // return { item: item }         
             });   
      }
+     getTotal(items){
+        let total=0;
+        items.map((element, index) => (
+            total= total+element.price*element.quantity  
+        ))
+        //console.log('time to get total');
+        //console.log(total);
+        return total;
+
+     }
     onSubmit = (e) => {
        e.preventDefault();
        this.setState( (state, props) => {  
@@ -92,15 +124,16 @@ class Item extends Component{
          item.date = `${day}/${month}/${year}`
          item.dueDate = `${dueDay}/${dueMonth}/${dueYear}`
        //let item =state.item
-        item.total= item.quantity*item.price;
+
+        item.total=  this.getTotal(state.items)//item.quantity*item.price;
         item.vat = item.total*0.075;
         item.grandTotal=item.vat+item.total;
         return { item: item }         
             }); 
-        alert(JSON.stringify(this.state.item));   
-    this.props.sendData(this.state.item)  
+        alert(JSON.stringify(this.state));   
+    this.props.sendData(this.state)  
     this.setState( {item: {}})
-    console.log(this.state)
+    //console.log(this.state)
 } 
     
     render(){
@@ -122,7 +155,7 @@ class Item extends Component{
                                 <input type="text" id="item" name="item" placeholder="Enter expense title" 
                                 onChange={this.handleItemNameChange}/>
                                 </Row>
-
+                                {/*
                                 <Row className="form-group">
                                 <Label htmlFor="description">Item Despcription</Label>
                                 <input type="text" id="description" name="description" placeholder="Enter Item description" 
@@ -140,7 +173,24 @@ class Item extends Component{
                                 <input type="number" id="quantity" name="quantity" placeholder="Enter the quantity of item" 
                                 onChange={this.handleQuantityChange}/>
                                 </Row>
-
+                                
+                                <button onClick={this.addFields}>Add More..</button>
+                                
+                                    */}
+                                     {this.state.items.map((element, index) => (
+            <div className="form-inline" key={index}>
+              
+              <label>Description</label>
+              <input type="text" name="description" value={element.description || ""} onChange={e => this.handleChange(index, e)} />
+              <label>Quantity </label>
+              <input type="text" name="quantity" value={element.quantity || ""} onChange={e => this.handleChange(index, e)} />
+              <label>Unit Price</label>
+              <input type="text" name="price" value={element.price || ""} onChange={e => this.handleChange(index, e)} />
+            </div>
+          ))}
+          <div className="button-section">
+              <button className="button add" type="button" onClick={() => this.addFormFields()}>Add new Item</button>
+              </div>
                                 <Row className="form-group">
                                 <Label htmlFor="due">Due date</Label>
                                 <input type="date" id="due" name="due" placeholder="" 

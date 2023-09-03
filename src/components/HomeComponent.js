@@ -155,6 +155,28 @@ class TestPrint extends Component{
     }
 
 }
+function Description(props) {
+    return (
+        <div className='row'>
+        <div className="col-5 col-md m-1">
+        <h6>Description    </h6>
+        <p> <span>{props.description}</span></p>
+        </div>
+        
+        <div className="col-2 col-md m-1">
+        <h6>Qty</h6>
+        <p>{props.quantity}</p>
+        </div>
+
+        <div className="col-3 col-md m-1">
+        <h6>Unit Price</h6>
+        <p>₦{new Intl.NumberFormat('en-US').format(props.price)}</p>
+        </div>
+
+    </div>
+    );
+  }
+
 
 class InvoiceData extends Component{
     constructor(props){
@@ -163,6 +185,13 @@ class InvoiceData extends Component{
     }
 
     render (){
+            let prop=this.props.dat.data.name;
+            let description;
+            if (prop.description){
+                    description= <Description description={prop.description} quantity={prop.quantity}
+                    price ={prop.price}/>
+            }
+
         return(
             <div className='container' id='report' style={{  /*backgroundImage: 'url("assets/images/nwd_logo.png")',
             backgroundRepeat: "no-repeat", backgroundSize: "cover"*/}}>
@@ -192,14 +221,14 @@ class InvoiceData extends Component{
 
                 <div className=' row '>
                 <div className="col-12 col-md m-1 ">
-                    <h4>Submited on {this.props.dat.data.name.date}</h4>
+                    <h4>Submited on {prop.date}</h4>
                     </div>   
                 </div>
 
                 <div className='row fifth g-7'>
                 <div className="col-4 col-md m-1 ">
                     <h5>Invoice for</h5>
-                    <p><span> {this.props.dat.data.name.name}</span></p>
+                    <p><span> {prop.name}</span></p>
                     </div>  
 
                     <div className="col-4 col-md m-1">
@@ -209,7 +238,7 @@ class InvoiceData extends Component{
                     </div> 
 
                     <div className="col-3 col-md-4 m-1">
-                    <h5>Invoice #</h5>142001{this.props.dat.data.name.number} 
+                    <h5>Invoice #</h5>142001{prop.number} 
                     <h5>TIN- 21432334-0001</h5>
                     </div> 
                 </div>
@@ -217,33 +246,19 @@ class InvoiceData extends Component{
                     <div className="col-12 col-md m-1 ">
                     <div className="float-end" >
                     <h5>Due Date</h5> 
-                    {this.props.dat.data.name.dueDate}
+                    {prop.dueDate}
                     </div>
                     </div>
                 </div>
                 <div className='ashThinLine'></div>
-
+                    
                 <div className='row'>
-                <div className="col-5 col-md m-1">
-                    <h6>Description    </h6>
-                    <p> <span>{this.props.dat.data.name.description}</span></p>
-                    </div>
-
-                <div className="col-2 col-md m-1">
-                    <h6>Qty</h6>
-                    <p>{this.props.dat.data.name.quantity}</p>
-                    </div>
-
-                    <div className="col-3 col-md m-1">
-                    <h6>Unit Price</h6>
-                    <p>₦{new Intl.NumberFormat('en-US').format(this.props.dat.data.name.price)}</p>
-                    </div>
-
-                    <div className="col-3 col-md m-1">
-                    <h6>Total Price</h6>
-                    <p>₦{new Intl.NumberFormat('en-US').format(this.props.dat.data.name.total)}</p>
-                    </div>
-
+                    {description}
+                
+                <div className="col-3 col-md m-1">
+        <h6>Total Price</h6>
+        <p>₦{new Intl.NumberFormat('en-US').format(prop.total)}</p>
+        </div>
                 </div>
 
                 
@@ -252,8 +267,8 @@ class InvoiceData extends Component{
                 <div className='row'>
                     <div className="col-12 col-md m-1 ">
                     <div className="float-end" >
-                    <h6>Vat (7.5%) <span> ₦{new Intl.NumberFormat('en-US').format(this.props.dat.data.name.vat)} </span> </h6>
-                    <h6>Grand Total <span>₦{new Intl.NumberFormat('en-US').format(this.props.dat.data.name.grandTotal)} </span> </h6>
+                    <h6>Vat (7.5%) <span> ₦{new Intl.NumberFormat('en-US').format(prop.vat)} </span> </h6>
+                    <h6>Grand Total <span>₦{new Intl.NumberFormat('en-US').format(prop.grandTotal)} </span> </h6>
                     </div>
                     </div>
                 </div>

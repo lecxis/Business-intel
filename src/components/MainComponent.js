@@ -13,6 +13,7 @@ import {
 import Header from'./HeaderComponent';
 import Home from'./HomeComponent';
 import Invoice from'./InvoiceComponent';
+import NewInvoice from './NewInvoiceComponent';
 import {INCOME} from '.././shared/income';
 import {EXPENSES} from '.././shared/expenses';
 import {PENDING} from '.././shared/pending';

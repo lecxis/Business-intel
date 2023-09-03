@@ -110,8 +110,9 @@ h6 span{
   right: 0px;
   bottom: 0px;
   left: 0px;
-  /*background-color: rgba(231, 228, 228, 0.25);*/
-  background-image: url('http://lecxis.github.io/Business-intel/assets/images/nwd_logo.png');
+  /*background-color: rgba(231, 228, 228, 0.25);
+  background-image: url('http://lecxis.github.io/Business-intel/assets/images/nwd_logo.png');*/
+  background-image: url("http://localhost:3000/Business-intel/assets/images/nwd_logo.png");
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 0.1;
