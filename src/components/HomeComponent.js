@@ -40,14 +40,26 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
                 });
                
             }
-        render(){
-            console.log(this.props)
+        render(){  
+            let prop;
+            let number;
+            if(this.props.name.description){
+                prop= this.props.name
+               // console.log(prop.name);
+                number=prop.number;
+            }
+            else if(this.props.name.item)
+             {prop=this.props.name.item;
+           // console.log('item found')
+           number=prop.number;
+            //console.log(prop.number)
 
+                }
             return(
                 <div>
                     <button onClick={this.toggleModal}  className= "btn btn-outline-dark"><span><i className="fa fa-pencil" aria-hidden="true"></i> </span>View Invoice</button> 
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <ModalHeader toggle={this.toggleModal}>Invoice 142001{this.props.name.number} </ModalHeader>
+                    <ModalHeader toggle={this.toggleModal}>Invoice 142001{number} </ModalHeader>
                     <ModalBody>
                    <PrintComponent data={this.props}/>
                     <button onClick={this.generatePDF}className= "btn btn-outline-dark">Download Invoice</button>
@@ -91,14 +103,18 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
     function RenderIncome(income) {
         //let obj=new ShowInvoice();
        // console.log(obj)
+       let prop
+       if (income.Description) prop=income
+       else if (income.item) prop=income.item
+       else prop=income
     return(
        // <div onClick={()=>ModalTest()}>hello </div>
        
           <Card >
               <CardBody >
-              <CardTitle>{income.name}</CardTitle>
-              {income.description ? <CardSubtitle>{income.description}</CardSubtitle> : null }
-              <CardText>{income.price}</CardText>
+              <CardTitle>{prop.name}</CardTitle>
+              {prop.description ? <CardSubtitle>{prop.description}</CardSubtitle> : null }
+             { prop.total ? <CardText>{prop.total}</CardText>: <CardText>{prop.price}</CardText>}
               <ShowInvoice name ={income}/>
               </CardBody>
           </Card>
@@ -172,9 +188,57 @@ function Description(props) {
         <h6>Unit Price</h6>
         <p>₦{new Intl.NumberFormat('en-US').format(props.price)}</p>
         </div>
+          <div className="col-3 col-md m-1">
+        <h6>Total Price</h6>
+        <p>₦{new Intl.NumberFormat('en-US').format(props.total)}</p>
+        </div>
 
     </div>
     );
+  }
+
+  function RenderItems(item){
+    return(
+        <div className='row'>
+        <div className="col-5 col-md m-1">
+        <h6>Description    </h6>
+        <p> <span>{item.description}</span></p>
+        </div>
+        
+        <div className="col-2 col-md m-1">
+        <h6>Qty</h6>
+        <p>{item.quantity}</p>
+        </div>
+
+        <div className="col-3 col-md m-1">
+        <h6>Unit Price</h6>
+        <p>₦{new Intl.NumberFormat('en-US').format(item.price)}</p>
+        </div>
+          <div className="col-3 col-md m-1">
+        <h6>Total Price</h6>
+        <p>₦{new Intl.NumberFormat('en-US').format(item.price*item.quantity)}</p>
+        </div>
+
+    </div>
+    )
+  }
+  function DescriptionTwo(props) {
+    let total;
+   let items= props.items.map((item)=>{
+        return( RenderItems(item));
+    });
+        
+     total = props.items.reduce((total,item)=>{
+        return( total+(item.price*item.quantity));
+    }, 0);
+    if (props.items.length>1){
+    return (
+        <div> {items}
+           <div className="col-6 col-md m-1 total" > Total Amount: ₦{new Intl.NumberFormat('en-US').format(total)}</div>
+        </div>  
+    );
+    }
+    else return (<div> {items}</div>)
   }
 
 
@@ -185,11 +249,17 @@ class InvoiceData extends Component{
     }
 
     render (){
-            let prop=this.props.dat.data.name;
+            let prop;
             let description;
-            if (prop.description){
+            if (this.props.dat.data.name.description){
+                prop=this.props.dat.data.name;
                     description= <Description description={prop.description} quantity={prop.quantity}
-                    price ={prop.price}/>
+                    price ={prop.price} total ={prop.total}/>
+            }
+            else {
+                prop = this.props.dat.data.name.item;
+                //console.log(prop.items[0])
+                description = <DescriptionTwo items={this.props.dat.data.name.items}/>
             }
 
         return(
@@ -254,11 +324,6 @@ class InvoiceData extends Component{
                     
                 <div className='row'>
                     {description}
-                
-                <div className="col-3 col-md m-1">
-        <h6>Total Price</h6>
-        <p>₦{new Intl.NumberFormat('en-US').format(prop.total)}</p>
-        </div>
                 </div>
 
                 

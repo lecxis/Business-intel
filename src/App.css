@@ -103,6 +103,13 @@ h6 span{
   color: black;
 }
 
+.total{
+  float: right;
+  font-size: 18px;
+  font-weight: bold;
+  color: blue;
+}
+
 #report::before {
   content: "";
   position: absolute;
