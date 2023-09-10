@@ -204,8 +204,8 @@ class Item extends Component{
                                 <Button outline onClick={this.butClicked}><span className="fa fa-sign-in fa-lg"></span> Testing</Button>
 
 
-<h1> This Is the username of {this.props.income[0].name
-} and {this.props.person} Invoice page </h1>
+<h1> This Is the username of {/*this.props.income[0].name
+} and {this.props.person*/} Invoice page </h1>
             </div>
         )
     }

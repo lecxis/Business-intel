@@ -100,7 +100,7 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
     */
 
 
-    function RenderIncome(income) {
+    function RenderIncome(income, deleteData) {
         //let obj=new ShowInvoice();
        // console.log(obj)
        let prop
@@ -115,7 +115,7 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
               <CardTitle>{prop.name}</CardTitle>
               {prop.description ? <CardSubtitle>{prop.description}</CardSubtitle> : null }
              { prop.total ? <CardText>{prop.total}</CardText>: <CardText>{prop.price}</CardText>}
-              <ShowInvoice name ={income}/>
+              <ShowInvoice name ={income}/> <button onClick={()=>{deleteData(prop.id)}}> Delete</button>
               </CardBody>
           </Card>
           )
@@ -347,7 +347,7 @@ function Home (props){
     //console.log(props);
     const menu = props.income.map((inc) => {
        // console.log(inc);
-       return( RenderIncome(inc));
+       return( RenderIncome(inc, props.deleteData));
     });
 
     const bills=props.expenses.map((inc) => {

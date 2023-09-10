@@ -32,6 +32,7 @@ class  Main extends Component {
           person: 'unknown'  
         };
        this.sendData= this.sendData.bind(this);
+       this.deleteData = this.deleteData.bind(this);
        
       }
       submitForm=(data)=>{
@@ -65,20 +66,25 @@ class  Main extends Component {
             ...prevState, income: inc//prevState.income//.push(data)//.unshift(data)
          }
          console.log(newstate)
-          return newstate
-          
-        }
-        
-      }
-          //
-          )  
-         
-          
+          return newstate  
+        }  } )  
           //console.log('co is ',count);
-              
-       
         //this.state.income.unshift(data);
         console.log(this.state)
+      }
+      deleteData = (id)=>{
+       
+        this.setState((prevState)=>{
+          let inc = prevState.income.filter(obj=>{
+            return obj.id !==id
+          });
+          let newstate= {
+            ...prevState, income: inc//prevState.income//.push(data)//.unshift(data)
+         }
+         //console.log(newstate)
+          return newstate
+        } )  
+
       }
 
 render(){
@@ -89,7 +95,7 @@ render(){
        <Header/>
           <Routes>
           <Route path='/' element ={ <Home income={this.state.income} expenses={this.state.expenses} 
-          person={this.state.person}
+          person={this.state.person} deleteData={this.deleteData}
           />} />
 
           <Route path='/invoice' element ={<Invoice sendData={this.sendData} 
