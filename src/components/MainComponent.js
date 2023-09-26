@@ -1,6 +1,10 @@
 import { Component } from 'react';
 import { Navbar, Nav} from 'reactstrap';
 //import { Link, IndexLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { deleteInvoice } from '../actionTypes';
+import { addInvoice } from '../actionTypes';
+
 
 import {
   BrowserRouter,
@@ -25,16 +29,41 @@ import {PENDING} from '.././shared/pending';
 class  Main extends Component {
     constructor(props) {
         super(props);
-        this.state = {
+       /* this.state = {
           income: INCOME,
           expenses: EXPENSES,
           pending: PENDING,
           person: 'unknown'  
-        };
+        };*/
        this.sendData= this.sendData.bind(this);
        this.deleteData = this.deleteData.bind(this);
-       
+          console.log(this.props.invoices.length)
+       if (this.props.invoices.length == 0){
+        const items = {
+          income: INCOME,
+          expenses: EXPENSES,
+          pending: PENDING,
+          person: 'unknown'  
+        }
+         // console.log(items.income);
+        items.income.forEach((item) => {
+          //console.log(item);
+          this.props.onAddInvoice( {item:
+          {
+         name: item.name,
+         description: item.description,
+         date: item.date
+       }});
+      }) 
+      console.log('test redux');
+      console.log(this.props); 
       }
+    }
+    handleDelete = (id,e) => {
+       e.preventDefault();
+       this.props.onDelete(id);
+       }
+
       submitForm=(data)=>{
         this.setState((prevState)=>({
             ...prevState, income:prevState.income.push(data)
@@ -91,18 +120,17 @@ render(){
 
     return(
 
-    <div >
+    <div>
        <Header/>
           <Routes>
-          <Route path='/' element ={ <Home income={this.state.income} expenses={this.state.expenses} 
-          person={this.state.person} deleteData={this.deleteData}
+          <Route path='/' element ={ <Home income={ this.props.invoices /*this.state.income*/} expenses={this.props.invoice/*this.state.expenses*/} 
+          person={'Ola'/*this.state.person*/} deleteData={this.props.deleteInvoice /*this.deleteData*/}
           />} />
 
           <Route path='/invoice' element ={<Invoice sendData={this.sendData} 
-          income={this.state.income}
-           person={this.state.person}
-           changePerson={this.changePerson}
-           
+          income={this.props.invoice /*this.state.income*/}
+          person={'Ola'/*this.state.person*/}
+          changePerson={this.changePerson}
            />} />
 
           </Routes>
@@ -114,4 +142,26 @@ render(){
     )
 }
 }
-export default Main;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+  invoices: state
+  };
+ };
+
+ const mapDispatchToProps = dispatch => {
+  return {
+  onAddInvoice: invoice => {
+    console.log(invoice);
+  dispatch(addInvoice(invoice));
+  },
+  onDelete: id => {
+  dispatch(deleteInvoice(id));
+  }
+  };
+ };
+ 
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+  )(Main);

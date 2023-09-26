@@ -10,11 +10,7 @@ class  App extends Component {
     
     <BrowserRouter>
     <Main/>
-    </BrowserRouter>
-        
-
-    
-   
+    </BrowserRouter>   
   );
 }
 }

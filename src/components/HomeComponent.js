@@ -343,17 +343,16 @@ class InvoiceData extends Component{
 }
 
 function Home (props){
-
-    //console.log(props);
-    const menu = props.income.map((inc) => {
+    console.log(props);
+    const bills='hi';
+     const menu =  props.income.map((inc) => {
        // console.log(inc);
        return( RenderIncome(inc, props.deleteData));
-    });
-
+    });/*
     const bills=props.expenses.map((inc) => {
         // console.log(inc);
         return( RenderExpenses(inc));
-     });
+     });*/
 //const user=props.person
     return(
         <div className="container">
