@@ -11,11 +11,9 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
         constructor(props){
             super(props)
             this.toggleModal = this.toggleModal.bind(this);
-
             this.state={
                 isModalOpen: false
               }
-             
         }
 
         toggleModal() {
@@ -53,8 +51,8 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
            // console.log('item found')
            number=prop.number;
             //console.log(prop.number)
-
                 }
+
             return(
                 <div>
                     <button onClick={this.toggleModal}  className= "btn btn-outline-dark"><span><i className="fa fa-pencil" aria-hidden="true"></i> </span>View Invoice</button> 
@@ -102,20 +100,34 @@ import { Card, CardText, CardBody, Modal, ModalHeader, ModalBody,
 
     function RenderIncome(income, deleteData) {
         //let obj=new ShowInvoice();
-       // console.log(obj)
+       //console.log(income.invoice.item.)
        let prop
-       if (income.Description) prop=income
-       else if (income.item) prop=income.item
+       let id=income.id;
+       let name;
+       let total;
+       if (income.invoice.item.description) {
+        prop=income.invoice.item;
+        name=income.invoice.item.name
+        total=income.invoice.item.total
+       }
+        
+       else if (income.invoice.items) {
+       prop=income.invoice;
+        name=income.invoice.item.name
+        total=income.invoice.item.total
+       }
+        
        else prop=income
+      console.log(prop);
     return(
        // <div onClick={()=>ModalTest()}>hello </div>
        
           <Card >
               <CardBody >
-              <CardTitle>{prop.name}</CardTitle>
+              <CardTitle>{name}</CardTitle>
               {prop.description ? <CardSubtitle>{prop.description}</CardSubtitle> : null }
-             { prop.total ? <CardText>{prop.total}</CardText>: <CardText>{prop.price}</CardText>}
-              <ShowInvoice name ={income}/> <button onClick={()=>{deleteData(prop.id)}}> Delete</button>
+             <CardText>{total}</CardText>
+              <ShowInvoice name ={prop}/> <button onClick={()=>{deleteData(id)}}> Delete</button>
               </CardBody>
           </Card>
           )
@@ -139,8 +151,6 @@ function RenderExpenses(expense) {
 
 function PrintComponent(props) {
     let componentRef = useRef();
-   
-  
     return (
       <>
         <div>
@@ -159,9 +169,7 @@ function PrintComponent(props) {
 class TestPrint extends Component{
     constructor(props){
         super(props)
-
     }
-
     render (){
        // console.log ('this is the new data')
        //console.log(this.props)
@@ -174,12 +182,12 @@ class TestPrint extends Component{
 function Description(props) {
     return (
         <div className='row'>
-        <div className="col-5 col-md m-1">
+        <div className="col-4 col-md m-1">
         <h6>Description    </h6>
         <p> <span>{props.description}</span></p>
         </div>
         
-        <div className="col-2 col-md m-1">
+        <div className="col-1 col-md m-1">
         <h6>Qty</h6>
         <p>{props.quantity}</p>
         </div>
@@ -199,23 +207,19 @@ function Description(props) {
 
   function RenderItems(item){
     return(
-        <div className='row'>
+        <div className='row seventh'>
         <div className="col-5 col-md m-1">
-        <h6>Description    </h6>
         <p> <span>{item.description}</span></p>
         </div>
         
-        <div className="col-2 col-md m-1">
-        <h6>Qty</h6>
+        <div className="col-1 col-md m-1">
         <p>{item.quantity}</p>
         </div>
 
-        <div className="col-3 col-md m-1">
-        <h6>Unit Price</h6>
+        <div className="col-2 col-md m-1">
         <p>₦{new Intl.NumberFormat('en-US').format(item.price)}</p>
         </div>
           <div className="col-3 col-md m-1">
-        <h6>Total Price</h6>
         <p>₦{new Intl.NumberFormat('en-US').format(item.price*item.quantity)}</p>
         </div>
 
@@ -231,24 +235,42 @@ function Description(props) {
      total = props.items.reduce((total,item)=>{
         return( total+(item.price*item.quantity));
     }, 0);
+    let heading=<div className='row seventh'>
+        <div className="col-5 col-md-3 m-1">
+        <h6>Description    </h6>
+        </div>
+        
+        <div className="col-1 col-md-1 m-1">
+        <h6>Qty</h6>
+        </div>
+
+        <div className="col-2 col-md-3 m-1">
+        <h6>Unit Price</h6>
+        </div>
+          <div className="col-3 col-md-3 m-1">
+        <h6>Total Price</h6>
+        </div>
+    </div>
+
     if (props.items.length>1){
     return (
-        <div> {items}
+        <div> {heading}{items}
            <div className="col-6 col-md m-1 total" > Total Amount: ₦{new Intl.NumberFormat('en-US').format(total)}</div>
         </div>  
     );
     }
-    else return (<div> {items}</div>)
+    else return (<div>{heading} {items}</div>)
   }
 
 
 class InvoiceData extends Component{
     constructor(props){
         super(props)
-
     }
+    
 
     render (){
+        console.log(this.props)
             let prop;
             let description;
             if (this.props.dat.data.name.description){
@@ -261,7 +283,7 @@ class InvoiceData extends Component{
                 //console.log(prop.items[0])
                 description = <DescriptionTwo items={this.props.dat.data.name.items}/>
             }
-
+            console.log(prop);
         return(
             <div className='container' id='report' style={{  /*backgroundImage: 'url("assets/images/nwd_logo.png")',
             backgroundRepeat: "no-repeat", backgroundSize: "cover"*/}}>
@@ -322,7 +344,7 @@ class InvoiceData extends Component{
                 </div>
                 <div className='ashThinLine'></div>
                     
-                <div className='row'>
+                <div className='row sixth'>
                     {description}
                 </div>
 

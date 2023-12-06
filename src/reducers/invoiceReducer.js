@@ -15,11 +15,13 @@ export default  function invoiceReducer (state = initialState, action) {
       //console.log(state);
       return [...state, /*income: state.income.unshift(*/
         action.payload];
-
     }
       
     case DELETE_INVOICE:
-      return {...state, income: state.income.filter(inc => inc.id !== action.payload.id)}
+      {
+        //console.log(state)
+      return  state.filter(inc => inc.id !== action.payload.id)
+      }
     default:
       return state;
   }

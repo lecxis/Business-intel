@@ -131,13 +131,14 @@ h6 span{
 }
 
 @media print {
+  
 @page {
   size: 160.5mm 260.15mm;
-  margin: 0 5%;
+  margin: 0% 5%;
+  
 }
 
 .fifth{
-
   display: grid;
   column-gap: 0px;
   /* 
@@ -182,5 +183,40 @@ h6 span{
   font-size: 23px;
   }
 
+.sixth{
+  border: 5px solid green;
+  margin: 0px !important;
+  padding: 0px;
+  color:#1e094d;
+  display: flex !important;
+  flex-direction:column !important;
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+.seventh{
+  border: 5px solid red;
+  margin-right: 0;
+  margin-left: 0;
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 0;
+  }
+  ;
+  /*padding: 0px;
+  color:#1e094d;
+  display: flex ;
+  flex-direction: row;
+  flex-wrap:nowrap;
+  width: 100%;*/
+
+}
 }
 

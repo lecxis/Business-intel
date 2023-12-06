@@ -52,6 +52,7 @@ class  Main extends Component {
           {
          name: item.name,
          description: item.description,
+         total: item.price,
          date: item.date
        }});
       }) 
@@ -117,17 +118,17 @@ class  Main extends Component {
       }
 
 render(){
-
+ //console.log(this.props);
     return(
 
     <div>
        <Header/>
           <Routes>
           <Route path='/' element ={ <Home income={ this.props.invoices /*this.state.income*/} expenses={this.props.invoice/*this.state.expenses*/} 
-          person={'Ola'/*this.state.person*/} deleteData={this.props.deleteInvoice /*this.deleteData*/}
+          person={'Ola'/*this.state.person*/} deleteData={this.props.onDelete /*this.deleteData*/}
           />} />
 
-          <Route path='/invoice' element ={<Invoice sendData={this.sendData} 
+          <Route path='/invoice' element ={<Invoice sendData={this.props.onAddInvoice} 
           income={this.props.invoice /*this.state.income*/}
           person={'Ola'/*this.state.person*/}
           changePerson={this.changePerson}
@@ -143,7 +144,7 @@ render(){
 }
 }
 const mapStateToProps = state => {
-  console.log(state);
+ // console.log(state);
   return {
   invoices: state
   };
@@ -152,10 +153,11 @@ const mapStateToProps = state => {
  const mapDispatchToProps = dispatch => {
   return {
   onAddInvoice: invoice => {
-    console.log(invoice);
+    //console.log(invoice);
   dispatch(addInvoice(invoice));
   },
   onDelete: id => {
+    
   dispatch(deleteInvoice(id));
   }
   };

@@ -2,11 +2,12 @@ import { ADD_INVOICE, DELETE_INVOICE } from './actionTypes';
 import { v4 as uuidv4 } from 'uuid';
 
 
-export const addInvoice = ({ item }) => ({
+export const addInvoice = (invoice) => ({
     type: ADD_INVOICE,
     payload: {
     id: uuidv4(),
-    item
+    invoice
+    //item
    // items
     }
    });
