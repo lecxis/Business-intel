@@ -11,7 +11,7 @@ import {
   Link,
   Redirect,
   Routes,
-  Route,
+  Route
  } from 'react-router-dom'
  
 import Header from'./HeaderComponent';
@@ -21,7 +21,44 @@ import NewInvoice from './NewInvoiceComponent';
 import {INCOME} from '.././shared/income';
 import {EXPENSES} from '.././shared/expenses';
 import {PENDING} from '.././shared/pending';
+
+// new addition
+import Landing from "./Landing";
+import Register from "./auth/Register";
+import Login from "./auth/Login";
+
+// setting up the login access part
+import store from ".././store";
+import {jwtDecode} from "jwt-decode";
+import setAuthToken from ".././utils/setAuthToken";
+import { setCurrentUser, logoutUser } from ".././actionTypes/authActions";
+import PrivateRoutes from "./private-route/PrivateRoutes";
+import Dashboard from "./dashboard/Dashboard";
+
+// Check for token to keep user logged in
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwtDecode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+// Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // Redirect to login
+    window.location.href = "./login";
+  }
+  console.log('just checked the local storage to know if user is logged in or not')
+  setTimeout(function (){
+    console.log('just checked the local storage to know if user is logged in or not 2'), 3000
+  })
+}
 //import Layout from './components/Layout';
+
 
 
 
@@ -124,20 +161,36 @@ render(){
     <div>
        <Header/>
           <Routes>
-          <Route path='/' element ={ <Home income={ this.props.invoices /*this.state.income*/} expenses={this.props.invoice/*this.state.expenses*/} 
-          person={'Ola'/*this.state.person*/} deleteData={this.props.onDelete /*this.deleteData*/}
-          />} />
+        { /**  <Route path='/' element ={ <Home income={ this.props.invoices 
+          //this.state.income
+         } expenses={this.props.invoice
+         //this.state.expenses} 
+          person={'Ola'
+          //this.state.person} deleteData={this.props.onDelete 
+          //this.deleteData}
+          />} />*/}
 
           <Route path='/invoice' element ={<Invoice sendData={this.props.onAddInvoice} 
           income={this.props.invoice /*this.state.income*/}
           person={'Ola'/*this.state.person*/}
           changePerson={this.changePerson}
            />} />
+            
+            <Route exact path="/login" element={<Login/>} />
+            <Route exact path="/register" element={<Register/>} />
+
+            <Route element={<PrivateRoutes/>}>
+
+              <Route path="/dashboard" element={<Dashboard/>} />
+            </Route>
+          
 
           </Routes>
         <p className='test'>
          Hello Lecxis World is back in main
         </p>
+        <Landing />
+        
         
     </div>
     )
